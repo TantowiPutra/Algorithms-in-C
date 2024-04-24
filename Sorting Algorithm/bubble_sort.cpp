@@ -32,7 +32,7 @@ void BubbleSort(int *arr, int size) {
     // If nothing swapped, mark as already sorted
 
     bool flag_sorted = false;
-    for(int i = 0; i < size && flag_sorted == false; i++) {
+    for(int i = 0; i < size && !flag_sorted; i++) {
         // j = i + 1, doesn't need to compare to current index
         flag_sorted = true;
 
@@ -49,7 +49,7 @@ void BubbleSort(int *arr, int size) {
         }
 
         // Stop when nothing is swapped
-        if(flag_sorted == true) break;
+        if(flag_sorted) break;
     }
 }
 
