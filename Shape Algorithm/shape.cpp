@@ -163,8 +163,40 @@ void PrintDiamondPattern2(int &number) {
     }
 }
 
+// Floyd Triangle
+void PrintFloydTriangle(int &number) {
+    int n = 1;
+
+    for(int i = 0; i < number; i++) {
+        for(int j = 0; j <= i ; j++) {
+            cout << n++ << " ";
+        }
+
+        cout << "\n";
+    }
+}
+
+// Pascal Triangle
+void PrintPascalTriangle(int &number) {
+    for(int i = 0; i < number; i++) {
+        for(int j = 0; j < number - i - 1; j++) {
+            cout << " ";
+        }
+
+        int C = 1; // coefficient 
+  
+        // inner loop 2 for printing numbers 
+        for (int k = 1; k <= i; k++) { 
+            cout << C << " ";
+            C = C * (i - k) / k; 
+        }
+
+        cout << "\n";
+    }
+}
+
 int main() {
-    int number = 5;
+    int number = 4;
 
     PrintRightHalfPyramid(number);
     cout << "\n";
@@ -183,5 +215,9 @@ int main() {
     PrintDiamondPattern1(number);
     cout << "\n";
     PrintDiamondPattern2(number);
+    cout << "\n";
+    PrintFloydTriangle(number);
+    cout << "\n";
+    PrintPascalTriangle(number);
     cout << "\n";
 }
