@@ -21,6 +21,22 @@ int BinarySearch(int *arr, int low, int high, int target) {
     return -1;
 }
 
+int BinarySearchLoop(int *arr, int start, int end, int target) {
+    while(end >= start) {
+        int mid = start + (end - start) / 2;
+        
+        if(arr[mid] == target) {
+            return mid;
+        } else if(arr[mid] > target) {
+            end = mid - 1;
+        } else if(arr[mid] < target) {
+            start = mid + 1;
+        }
+    }
+    
+    return -1;
+}
+
 int main() {
     int number[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
 
