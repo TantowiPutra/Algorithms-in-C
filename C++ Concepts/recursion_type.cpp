@@ -60,6 +60,14 @@ void funcHalf(int n)
     }
 }
 
+int funcNested(int n)
+{
+    if(n > 100)
+        return n -10;
+    else 
+        return funcNested(funcNested(n + 11));
+}
+
 int main() {
     cout << "Tail Recursion: " << endl;
     tailRecursion(3);
@@ -70,5 +78,7 @@ int main() {
     treeRecursion(3);
     cout << "Indirect Recursion: " << endl;
     funcA(20);
+    cout << "Nested Function: " << endl;
+    funcNested(95);
     return 0;
 }
