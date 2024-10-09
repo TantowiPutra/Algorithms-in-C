@@ -19,6 +19,14 @@ int powOptimized(int m, int n)
     } else {
         return m * powOptimized(m * m, n / 2);
     }
+
+    //  2 ^ 4
+    /*
+        powOptimized(2 * 2, 2) (return 16)
+        powOptimized(4 * 4, 1) (return 16) 
+        16 * (powOptimized(16 * 16, 1)) ~ 1 = 16 * 1 = (return 16)  
+        
+    */
 }
 
 int main() {
