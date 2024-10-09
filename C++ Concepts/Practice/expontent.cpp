@@ -15,9 +15,9 @@ int powOptimized(int m, int n)
         return 1;
 
     if(n % 2 == 0) {
-        return pow(m * m, n / 2);
+        return powOptimized(m * m, n / 2);
     } else {
-        return m * pow(m * m, n / 2);
+        return m * powOptimized(m * m, n / 2);
     }
 }
 
