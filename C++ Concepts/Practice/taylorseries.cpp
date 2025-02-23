@@ -24,7 +24,7 @@ float TaylorSeries(int n, int x) {
 
 int main() {
     int n = 2;
-    int x = 4;
+    int x = 3;
     
     cout << TaylorSeries(n, x) << endl;
 
