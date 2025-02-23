@@ -11,20 +11,17 @@ float TaylorSeries(int n, int x) {
     if(x == 0) {
         return 1;
     } else {
-        int r = TaylorSeries(n, x - 1);
+        float r = TaylorSeries(n, x - 1);
         p = p * n;
         f = f * x;
-    
-        printf("P: %f\n", p);
-        printf("F: %f\n", f);
         
-        return r + p / f;
+        return r + (p / f);
     }
 }
 
 int main() {
-    int n = 2;
-    int x = 3;
+    int n = 1;
+    int x = 10;
     
     cout << TaylorSeries(n, x) << endl;
 
