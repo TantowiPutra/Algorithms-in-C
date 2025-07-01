@@ -41,6 +41,48 @@ void Insert(struct Array *arr, int idx, int x) {
     // INSERTION O(n)
 }
 
+void Delete(struct Array *arr, int idx) {
+    for(int i = idx; i < arr->length - 1; i++) {
+        arr->A[i] = arr->A[i + 1];
+    }
+
+    arr->length -= 1;
+}
+
+int linearSearch(struct Array *arr, int num) {
+    for(int i = 0; i < arr->length; i++) {
+        if(arr->A[i] == num) {
+            // TRANSPOSITION
+            if(i != 0) {
+                std::swap(arr->A[i], arr->A[i - 1]);
+                return i - 1;
+            }
+            
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int binarySearch(struct Array *arr, int num) {
+    int low = 0;
+    int high = arr->length - 1;
+
+    while(low <= high) {
+        int mid = low + (high - low) / 2;
+        if(arr->A[mid] == num)
+            return mid;
+        else if(arr->A[mid] > num)
+            high = mid - 1;
+        else if(arr->A[mid] < num) {
+            low = mid + 1;
+        }
+    }
+
+    return - 1;
+}
+
 int main() {
     struct Array arr = {
         new int[100] {
@@ -49,31 +91,28 @@ int main() {
         100,
         10
     };
-    // int n, i;
 
-    // printf("Enter Size of an Array: ");
-    // scanf("%d", &arr.size);
+    // FOR BINARY SEARCH, ARRAY MUST BE SORTED
+    struct Array arr2 = {
+        new int[100] {
+            4, 8, 10, 15, 18, 21, 24, 27, 29, 33, 34, 37, 39, 41, 43
+        },
+        100,
+        15
+    };
 
-    // arr.A = (int *) malloc(arr.size * sizeof(int));
+    // Append(&arr, 11);
+    // Display(arr);
+    // std::cout << '\n' << std::endl;
+    // Insert(&arr, 10, 12);
+    // Display(arr);
+    // std::cout << '\n' << std::endl;
+    // Delete(&arr, 12);
+    // Display(arr);
+    // std::cout << '\n' << std::endl;
 
-    // arr.length = 0;
-
-    // printf("How Many Numbers: ");
-    // scanf("%d", &n);
-
-    // printf("Enter All Elements: ");
-    // for(i = 0; i < n; i++) {
-    //     scanf("%d", &arr.A[i]);
-    // }
-
-    // arr.length = n;
-
-    Append(&arr, 11);
-    Display(arr);
-    std::cout << '\n' << std::endl;
-    Insert(&arr, 10, 12);
-    Display(arr);
-    std::cout << '\n' << std::endl;
+    std::cout << "Linear Search: " << linearSearch(&arr, 10) << std::endl;
+    std::cout << "Binary Search: " << binarySearch(&arr2, 34) << std::endl;
 
     return 0;
 }
