@@ -6,7 +6,7 @@ using namespace std;
 
 // TIME COMPLEXITY O(N)
 float TaylorSeries(int n, int x) {
-    static float p = 1, f =1;
+    static float p = 1, f = 1;
     
     if(x == 0) {
         return 1;
@@ -20,8 +20,8 @@ float TaylorSeries(int n, int x) {
 }
 
 int main() {
-    int n = 1;
-    int x = 10;
+    int n = 2;
+    int x = 4;
     
     cout << TaylorSeries(n, x) << endl;
 

@@ -83,10 +83,91 @@ int binarySearch(struct Array *arr, int num) {
     return - 1;
 }
 
+int Get(struct Array *arr, int idx) {
+    int arrLn = arr->length;
+
+    if(idx >= 0 && idx <= arrLn) {
+        return arr->A[idx];
+    } else {
+        return -1;
+    }
+}
+
+void Set(struct Array *arr, int val, int idx) {
+    int arrLn = arr->length;
+    if(idx >= 0 && idx <= arrLn) {
+        arr->A[idx] = val;
+    }
+}
+
+int max(struct Array *arr) {
+    int max = -1;
+    for(int i = 0; i < arr->length; i++) {
+        max = max < arr->A[i] ? arr->A[i] : max;
+    }
+
+    return max;
+}
+
+int min(struct Array *arr) {
+    int min = arr->A[0];
+    for(int i = 0; i < arr->length; i++) {
+        min = min > arr->A[i] ? arr->A[i] : min; 
+    }
+
+    return min;
+}
+
+int sum(struct Array *arr) {
+    int sum = 0;
+    for(int i = 0; i < arr->length; i++) {
+        sum += arr->A[i];
+    }
+
+    return sum;
+}
+
+void reverse(struct Array *arr) {
+    int temp = 0;
+    int low  = 0;
+    int high = arr->length - 1;
+
+    while(low < high) {
+        temp = arr->A[high];
+        arr->A[high] = arr->A[low];
+        arr->A[low] = temp;
+        low++;
+        high--;
+    }
+}
+
+void leftRotate(struct Array *arr) {
+    if(arr->length > 0) {
+        int temp = arr->A[0];
+
+        for(int i = 0; i < arr->length - 1; i++) {
+            arr->A[i] = arr->A[i + 1];
+        }
+
+        arr->A[arr->length - 1] = temp;
+    }
+}
+
+void rightRotate(struct Array *arr) {
+    if(arr->length > 0) {
+        int temp = arr->A[arr->length - 1];
+        for(int i = arr->length - 1; i > 0; i--) {
+            arr->A[i] = arr->A[i - 1];
+        }
+
+        arr->A[0] = temp;
+    }
+}
+
 int main() {
     struct Array arr = {
         new int[100] {
-            1, 2, 3, 4, 5, 6, 7 , 8 , 9 ,10
+            11, 2, 3, 4, 5, 6, 7 , 8 , 9 ,10
         },
         100,
         10
@@ -113,6 +194,34 @@ int main() {
 
     std::cout << "Linear Search: " << linearSearch(&arr, 10) << std::endl;
     std::cout << "Binary Search: " << binarySearch(&arr2, 34) << std::endl;
+    std::cout << "Get Array Out of Bound: "           << Get(&arr, 30) << std::endl;
+    std::cout << "Get Array: "           << Get(&arr, 3) << std::endl;
+    Set(&arr, 100, 2);
+    std::cout << "Set Array Value: " << arr.A[2] << std::endl;
+    Set(&arr, 120, 3);
+    std::cout << "Set Array Value: " << arr.A[3] << std::endl;
+    std::cout << "Max Array Value: " << max(&arr) << std::endl;
+    std::cout << "Min Array Value: " << min(&arr) << std::endl;
+    std::cout << "Sum Array Value: " << sum(&arr) << std::endl;
+
+    std::cout << "Before Reverse: " << std::endl;
+    Display(arr);
+    std::cout << "\n" << std::endl;
+
+    reverse(&arr);
+    std::cout << "After Reverse: ";
+    Display(arr);
+    std::cout << "\n" << std::endl;
+
+    leftRotate(&arr);
+    std::cout << "After Left Rotate: ";
+    Display(arr);
+    std::cout << "\n" << std::endl;
+
+    rightRotate(&arr);
+    std::cout << "After Right Rotate: ";
+    Display(arr);
+    std::cout << "\n" << std::endl;
 
     return 0;
 }
