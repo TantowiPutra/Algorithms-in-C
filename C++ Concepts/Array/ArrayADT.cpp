@@ -164,6 +164,79 @@ void rightRotate(struct Array *arr) {
     }
 }
 
+// INSERT A VALUE INTO A SORTED ARRAY
+void insertVal(struct Array *arr, int val) {
+    if(arr->length <= arr->size) {
+        int length = arr->length;
+        int i      = length - 1;
+
+        // WHILE LOOP IS BETTER USED HERE, SINCE WE DON'T KNOW HOW MANY TIMES EXACTLY A LOOP WITH OCCUR
+        while(i > 0 && arr->A[i] > val) {
+            arr->A[i + 1] = arr->A[i];
+            i--;
+        }
+
+        arr->A[i + 1] = val;
+        arr->length += 1;
+    }   
+}
+
+bool isArraySorted(struct Array *arr) {
+    for(int i = 1; i < arr->length; i++) {
+        if(arr->A[i] < arr->A[i -1]) 
+            return false;
+    }
+
+    return true;
+}
+
+void minOnLeft(struct Array *arr) {
+    int low = 0, high = arr->length - 1;
+
+    while(low < high) {
+        while(arr->A[low] < 0 && low < high) {
+            low += 1;
+        }
+
+        while(arr->A[high] > 0 && high > low) {
+            high -= 1;
+        }
+
+        if(low < high) {
+            int temp        = arr->A[low];
+            arr->A[low]     = arr->A[high];
+            arr->A[high]    = temp;
+        }
+    }
+}
+
+Array* mergeArray(struct Array *arr1, struct Array *arr2) {
+    struct Array *mergedArr = new Array {
+        new int[100],
+        100,
+        0
+    };
+
+    int idx = 0, i = 0, j = 0, iH = arr1->length, jH = arr2->length;
+
+    while(i < iH && j < jH) {
+        mergedArr->A[mergedArr->length] = arr1->A[i] > arr2->A[j] ? arr2->A[j++] : arr1->A[i++];
+        mergedArr->length += 1;
+    }
+
+    while(i < iH) {
+        mergedArr->A[mergedArr->length] = arr1->A[i++];
+        mergedArr->length += 1;
+    }
+
+    while(j < jH) {
+        mergedArr->A[mergedArr->length] = arr2->A[j++];
+        mergedArr->length += 1;
+    }
+
+    return mergedArr;
+}
+
 int main() {
     struct Array arr = {
         new int[100] {
@@ -223,5 +296,61 @@ int main() {
     Display(arr);
     std::cout << "\n" << std::endl;
 
+    struct Array srtArr = {
+        new int[100] {
+            4, 8, 13, 16, 20, 25, 28, 33
+        },
+        100,
+        8
+    };
+
+    std::cout << "Orig Sorted Array: ";
+    Display(srtArr);
+
+    insertVal(&srtArr, 100);
+    std::cout << "\nSorted Array After Value Insert: ";
+    Display(srtArr);
+
+    std::cout << std::endl;
+    std::cout << "Is Array Sorted: " << isArraySorted(&srtArr) << std::endl;
+
+    struct Array minOnLeftArr = {
+        new int[100] {
+            -6, -4, 8, -9, 10, -1, 2, 3
+        },
+        100,
+        8
+    };
+
+    
+    std::cout << std::endl;
+    std::cout << "Orig Min Array Array: ";
+    Display(minOnLeftArr);
+    minOnLeft(&minOnLeftArr);
+    std::cout << std::endl;
+    std::cout << "Min On Left Array: ";
+    Display(minOnLeftArr);
+
+    struct Array arrMerge1 = {
+        new int[100] {
+            3, 8, 16, 20, 25
+        },
+        100,
+        5
+    };
+
+    struct Array arrMerge2 = {
+        new int[100] {
+            4, 10, 12, 22, 23 
+        },
+        100,
+        5
+    };
+
+    std::cout << "\nArray Merge: ";
+    struct Array *mergedArray = mergeArray(&arrMerge1, &arrMerge2);
+    std::cout << mergedArray << std::endl;
+    Display(*mergedArray);
+    
     return 0;
 }
