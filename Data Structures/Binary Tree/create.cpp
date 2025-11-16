@@ -43,8 +43,8 @@ void morrisTreePreorderTraversal(TreeNode *root) {
              1
             / \
            2   3
-         /
-        4
+         /  \
+        4    5
     */
         
     while(root) {
