@@ -126,7 +126,9 @@ TreeNode *deleteAVL(TreeNode *root, int val) {
                 temp = root;
                 root = nullptr;
             } else {
-                *root = *temp;
+                TreeNode* old = root;
+                root = temp;
+                delete old;
             }
 
             delete temp;
@@ -180,6 +182,8 @@ int main() {
     root = insertAVL(root, 40);
     root = insertAVL(root, 45);
     root = insertAVL(root, 10);
+
+    preOrderTraversal(root);
 
     return 0;
 }
