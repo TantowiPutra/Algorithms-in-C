@@ -145,22 +145,22 @@ TreeNode *deleteAVL(TreeNode *root, int val) {
     int balanceFactor = getHeight(root->left) - getHeight(root->right);
     // LEFT LEFT
     if(balanceFactor > 1 && getHeight(root->left->left) >= getHeight(root->left->right))
-        return rotateRight(root);
+        root = rotateRight(root);
 
     // LEFT RIGHT
     if(balanceFactor > 1 && getHeight(root->left->left) < getHeight(root->left->right)) {
         root->left = rotateLeft(root->left);
-        return rotateRight(root);
+        root = rotateRight(root);
     }
 
     // RIGHT RIGHT
     if(balanceFactor < -1 && getHeight(root->right->right) >= getHeight(root->right->left))
-        return rotateLeft(root);
+        root = rotateLeft(root);
 
     // RIGHT LEFT
     if(balanceFactor < -1 && getHeight(root->right->right) < getHeight(root->right->left)) {
         root->right = rotateRight(root->right);
-        return rotateLeft(root);
+        root = rotateLeft(root);
     }
 
     updateHeight(root);
@@ -168,13 +168,16 @@ TreeNode *deleteAVL(TreeNode *root, int val) {
 }
 
 int main() {
-    TreeNode * root = insertAVL(nullptr, 10);
+    TreeNode * root = insertAVL(nullptr, 30);
+    root = insertAVL(root, 20);
     root = insertAVL(root, 15);
-    root = insertAVL(root, 12);
+    root = insertAVL(root, 25);
+    root = insertAVL(root, 35);
 
     // preOrderTraversal(root); 
 
-    root = deleteAVL(root, 12);
+    root = deleteAVL(root, 35);
+    root = deleteAVL(root, 25);
     preOrderTraversal(root); 
 
     return 0;
