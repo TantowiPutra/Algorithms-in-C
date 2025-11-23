@@ -72,17 +72,18 @@ TreeNode *insertAVL(TreeNode *root, int val) {
         // CEGAH DUPLICATE
         return root;
     }
-
+    
+    updateHeight(root);
     int balanceFactor = getHeight(root->left) - getHeight(root->right);
 
     // CONDONG KE KIRI (LL)
-    if(balanceFactor > 1 && val < root->left->val) {
+    if(balanceFactor > 1 && getHeight(root->left->left) >= getHeight(root->left->right)) {
         // RIGHT ROTATION
         root = rotateRight(root); 
     }
 
     // CONDONG KE KIRI -> KANAN (LR)
-    if(balanceFactor > 1 && val > root->left->val) {
+    if(balanceFactor > 1 && getHeight(root->left->left) < getHeight(root->left->right)) {
         // LEFT ROTATION
         root->left = rotateLeft(root->left);
 
@@ -91,13 +92,13 @@ TreeNode *insertAVL(TreeNode *root, int val) {
     }
 
     // CONDONG KE KANAN (RR)
-    if(balanceFactor < -1 && val > root->right->val) {
+    if(balanceFactor < -1 && getHeight(root->right->right) >= getHeight(root->right->left)) {
         // LEFT ROTATION
         root = rotateLeft(root); 
     }
 
     // CONDING KE KANAN KIRI (RL)
-    if(balanceFactor < -1 && val < root->right->val) {
+    if(balanceFactor < -1 && getHeight(root->right->right) < getHeight(root->right->left)) {
         // RIGHT ROTATION
         root->right = rotateRight(root->right);
         
@@ -105,7 +106,6 @@ TreeNode *insertAVL(TreeNode *root, int val) {
         root = rotateLeft(root);
     }
     
-    updateHeight(root);
     return root;
 }
 
@@ -142,6 +142,7 @@ TreeNode *deleteAVL(TreeNode *root, int val) {
 
     if(!root) return root;
 
+    updateHeight(root);
     int balanceFactor = getHeight(root->left) - getHeight(root->right);
     // LEFT LEFT
     if(balanceFactor > 1 && getHeight(root->left->left) >= getHeight(root->left->right))
@@ -163,22 +164,22 @@ TreeNode *deleteAVL(TreeNode *root, int val) {
         root = rotateLeft(root);
     }
 
-    updateHeight(root);
     return root;
 }
 
 int main() {
-    TreeNode * root = insertAVL(nullptr, 30);
+    TreeNode *root = insertAVL(nullptr, 30);
     root = insertAVL(root, 20);
     root = insertAVL(root, 15);
     root = insertAVL(root, 25);
     root = insertAVL(root, 35);
 
-    // preOrderTraversal(root); 
-
     root = deleteAVL(root, 35);
     root = deleteAVL(root, 25);
-    preOrderTraversal(root); 
+
+    root = insertAVL(root, 40);
+    root = insertAVL(root, 45);
+    root = insertAVL(root, 10);
 
     return 0;
 }
