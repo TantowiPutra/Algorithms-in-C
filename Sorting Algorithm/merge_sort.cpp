@@ -1,73 +1,60 @@
-// Example Merge
-// {3, 7, 8, 5, 4, 2, 6, 1}
-
-#include <iostream>
+// Online C++ compiler to run C++ program online
+#include <bits/stdc++.h>
 using namespace std;
 
-void merge(int *array, int left, int mid, int right) {
+void merge(vector<int> &arr, int l, int mid, int r) {
+    int n1 = mid - l + 1;
+    int n2 = r - mid;
     
-    /*
-        Misal: array{1, 3, 4, 5, 5}
-        left: 0
-        mid: 2
-        right: 4
-
-        buat sub array, berarti sizenya 5
-        kiri    : selisih (mid - left +1)
-        kanan   : selisih (kanan - mid)
-
-        kalo ditotal kiri + kanan bakal jadi 5
-    */
-
-    auto const sizeSubArrOne = mid - left + 1;
-    auto const sizeSubArrTwo = right - mid;
-
-}
-
-void mergeSort(int *numbers, int left, int right, string currNode) {
-    // if(currNode == "left") {
-    //     cout << "left: " << left << " " << mid << " " << right << endl;
-    // } else  if(currNode == "right") {
-    //     cout << "right: " << left << " " << mid << " " << right << endl;
-    // } else {
-    //     cout << "root: " << left << " " << mid << " " << right << endl;
-    // }
-
-    // Kalo kiri >= kanan, berarti sudah sampai base case, gaperlu pecah jadi array lagi
-    if(left >= right) return;
-
-    int mid = left + (right - left) / 2;
-
-    // cout << left << " " << mid << " " << right << endl; 
-
-    // ! Visualize the process as binary tree to understand the concept
-    // Kiri
-    mergeSort(numbers, left, mid, "left");
-
-    // Kanan
-    mergeSort(numbers, mid + 1, right, "right");
-
-    // cout << "Call Merge" << endl; 
-
-    // Pecah array recursively, terus jadiin satu ketika tree sudah sampai node paling ujung
-    // cout << "Call Merge" << endl; 
-    merge(numbers, left, mid, right);
-}
-
-void PrintArray(int *arr, int size) {
-    for(int i = 0; i < size ; i++) {
-        cout << arr[i] << " ";
+    vector<int> v1, v2;
+    for(int i = 0; i < n1; i++) {
+        v1.push_back(arr[l + i]);
+    }
+    
+    for(int i = 0; i < n2; i++) {
+        v2.push_back(arr[mid + 1 + i]);
+    }
+    
+    // Insert Value ke Original Array
+    int i = 0, j = 0, k = l;
+    
+    while(i < n1 && j < n2) {
+        if(v1[i] <= v2[j]) {
+            arr[k++] = v1[i++];
+        } else {
+            arr[k++] = v2[j++];
+        }
+    }
+    
+    while(i < n1) {
+        arr[k++] = v1[i++];
+    }
+    
+    while(j < n2) {
+        arr[k++] = v2[j++];
     }
 }
 
+void mergeSort(vector<int> &arr, int l, int r) {
+    if(l >= r) return;
+    
+    int mid = l + (r - l) / 2;
+    
+    mergeSort(arr, l, mid);
+    mergeSort(arr, mid + 1, r);
+    
+    merge(arr, l, mid, r);
+}
+
+void printArr(vector<int> &arr) {
+    for(int &x : arr) cout << x << " ";
+    cout << endl;
+}
+
 int main() {
-    int numbers[5] = {3, 1, 2, 4, 5};
-
-    int arrSize = sizeof(numbers) / sizeof(numbers[0]);
-
-    mergeSort(numbers, 0, arrSize - 1, "root"); 
-
-    // PrintArray(numbers, arrSize); 
-
+    vector<int> arr = {30, 20 , 10, 5, -10, 20, 5, 35};
+    mergeSort(arr, 0, arr.size() - 1);
+    printArr(arr);
+    
     return 0;
 }
