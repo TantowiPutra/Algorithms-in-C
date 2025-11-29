@@ -31,11 +31,15 @@ public:
 
         // 2. Proses Node dari Leaf Node, yakni Node yang hanya terhubung ke 1 Node Max
         queue<int> q;
-        for(auto [curr, adj] : g) {
+        for(auto &p : g) {
+            int curr = p.first;
+            auto &adj = p.second;
+
             if(adj.size() == 1) {
                 q.push(curr);
             }
         }
+
 
         // while(!q.empty()) {
         //     int front = q.front(); q.pop();
@@ -93,3 +97,22 @@ public:
         return cnt;
     }
 };
+
+int main() {
+    int n = 5, k = 6, cnt = 0; 
+    vector<vector<int>> edges = { {0,2}, {1,2}, {1,3}, {2,4}};
+    vector<int> values = {1,8,1,5,4};
+
+    vector<vector<int>> adjList(n);
+
+    for(auto edge: edges) {
+        adjList[edge[0]].push_back(edge[1]);
+        adjList[edge[1]].push_back(edge[0]);
+    }
+
+    Solution s = Solution();
+    s.dfs(2, -1, adjList, values, k, cnt);
+    cout << cnt;
+
+    return 0;
+}
