@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        int n = words.size();
+        int maxFreq = INT_MIN, minFreq = INT_MAX;
+        unordered_map<string, int> map; // O(N)
+
+        for(auto &word : words) { // O(N)
+            map[word]++;
+            minFreq = min(minFreq, map[word]);
+            maxFreq = max(maxFreq, map[word]);
+        }
+
+        vector<vector<string>> bucket(maxFreq - minFreq + 1); // (N)
+        for(auto [word, freq] : map) {
+            bucket[freq - minFreq].push_back(word);
+        }
+
+        vector<string> ans;
+        for(int i = bucket.size() - 1; i >= 0 && k > 0; i--) { 
+            /*
+                Sort Tiap Bucket, Box Log Box <= U Log U, dimana Box itu Sebagian dari total Unique words,
+                jadi gamungkin melebihi U log U total kompleksitas waktunya
+            */
+            sort(bucket[i].begin(), bucket[i].end());
+
+            for(int j = 0; j < bucket[i].size() && k > 0; j++) {
+                ans.push_back(bucket[i][j]);
+                k--;
+            }
+        }
+
+        // TC : N log N
+        // SC : O(N)
+
+        return ans;
+    }
+};
