@@ -103,6 +103,7 @@
     "list": "cpp",
     "unordered_set": "cpp",
     "regex": "cpp",
-    "valarray": "cpp"
+    "valarray": "cpp",
+    "526_beautiful_arrangement": "cpp"
   }
 }
