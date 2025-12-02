@@ -3,7 +3,7 @@ using namespace std;
 
 class Solution {
 public:
-    bool canCross(vector<int>& stones) {
+    bool topDownDP(vector<int> &stones) {
         int n = stones.size();
         if (stones[1] != 1) return false;
 
@@ -28,4 +28,32 @@ public:
 
         return dfs(1, 1);
     }
+
+    bool bottomUpDP(vector<int> &stones) {
+        int n = stones.size();
+        unordered_map<int, unordered_set<int>> mp;
+        for(int i = 0; i < n; i++) {
+            mp[stones[i]];
+        }
+        mp[0].insert(0);
+
+        for(int stone : stones) {
+            for(int jump : mp[stone]) {
+                for(int distance : {jump - 1, jump, jump + 1}) {
+                    if(mp.find(stone + distance) != mp.end()) {
+                        mp[stone + distance].insert(distance);
+                    }
+                }
+            }
+        }
+
+        return !mp[stones.back()].empty();
+    }
+
+    bool canCross(vector<int>& stones) {
+        return bottomUpDP(stones);
+
+        return topDownDP(stones);
+    }
 };
+
