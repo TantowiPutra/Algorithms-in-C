@@ -98,6 +98,13 @@
     "sstream": "cpp",
     "stdexcept": "cpp",
     "streambuf": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "forward_list": "cpp",
+    "list": "cpp",
+    "unordered_set": "cpp",
+    "regex": "cpp",
+    "valarray": "cpp",
+    "526_beautiful_arrangement": "cpp",
+    "map": "cpp"
   }
 }
