@@ -47,13 +47,13 @@ void removeHeap(vector<int> &maxHeap) {
     int left    = (idx * 2) + 1;
     int right   = (idx * 2) + 2;
 
-    while(left < n) {
+    while(left < maxHeap.size()) {
         int largest = idx;
 
         if(maxHeap[left] > maxHeap[largest]) 
             largest = left;
 
-        if(right < n && maxHeap[right] > maxHeap[largest])
+        if(right < maxHeap.size() && maxHeap[right] > maxHeap[largest])
             largest = right;
 
         if(idx == largest) break;
