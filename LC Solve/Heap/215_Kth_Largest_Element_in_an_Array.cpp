@@ -12,14 +12,14 @@ public:
             int currIdx = i;
             int parent  = (currIdx - 1) / 2;
             
-            while(i > 0 && nums[currIdx] > nums[parent]) {
+            while(currIdx > 0 && nums[currIdx] > nums[parent]) {
                 swap(nums[currIdx], nums[parent]);
                 currIdx = parent;
                 parent  = (currIdx - 1) / 2;
             }
         }
 
-        // EXTRACT HEAP O(K LOG K)
+        // EXTRACT HEAP O(K LOG N)
         k--;
         while(k > 0) {
             int temp = nums.back();
@@ -35,7 +35,7 @@ public:
                 int largest = idx;
 
                 if(nums[left] > nums[largest]) largest = left;
-                if(right < n && nums[right] > nums[largest]) largest = right;
+                if(right < sz && nums[right] > nums[largest]) largest = right;
                 if(largest == idx) break;
                 swap(nums[largest], nums[idx]);
 
@@ -47,6 +47,7 @@ public:
             k--;
         }
 
-        return nums[0]; // TOTAL O(N Log N + K Log K)
+        return nums[0]; // TOTAL O(N Log N + K Log N)
     }
 };
+
