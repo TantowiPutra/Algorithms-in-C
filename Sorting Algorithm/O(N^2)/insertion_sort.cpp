@@ -14,16 +14,15 @@ int main() {
     vector<int> v = {100, 3 , 8, 8, 4, 1, 5, 6};
     
     for(int i = 1; i < v.size(); i++) {
-        int n = 0;
-        int numToInsert = v[i];
-        
-        while(v[n] < v[i] && n < i) n++;
-        
-        for(int j = i; j > n; j--) {
-            v[j] = v[j - 1];   
+        int numInsert = v[i];
+        int j = i - 1;
+
+        while(j >= 0 && numInsert < v[j]) {
+            v[j + 1] = v[j];
+            j--;
         }
-        
-        v[n] = numToInsert;
+
+        v[j + 1] = numInsert;
     }
     
     printVector(v);
