@@ -65,6 +65,30 @@ void removeHeap(vector<int> &maxHeap) {
     }
 }
 
+
+void heapify(vector<int> &arr, int idx, int n) {
+    int largest = idx;
+    int left    = (idx * 2) + 1;
+    int right   = (idx * 2) + 2;
+
+    if(left < n && arr[left] > arr[largest])
+        largest = left;
+
+    if(right < n && arr[right] > arr[largest])
+        largest = right;
+
+    if(largest == idx) return;
+    swap(arr[idx], arr[largest]);
+    heapify(arr, largest, n);
+}
+
+void buildHeap(vector<int> &arr) {
+    int n = arr.size();
+    for(int i = (n / 2) - 1; i >= 0; i--) {
+        heapify(arr, i, n);
+    }
+}
+
 int main() {
     vector<int> maxHeap;
     insert(maxHeap, 1);
@@ -80,6 +104,10 @@ int main() {
     print(arr);
     removeHeap(arr);
     print(arr);
+
+    vector<int> arr2 = {5, 10, 30, 20, 35, 40, 15};
+    buildHeap(arr2);
+    print(arr2);
 
     return 0;
 }
