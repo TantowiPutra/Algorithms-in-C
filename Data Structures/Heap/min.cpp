@@ -63,6 +63,29 @@ void removeHeap(vector<int> &minHeap) {
     }
 }
 
+void heapify(vector<int> &arr, int idx, int n) {
+    int smallest = idx;
+    int left     = (idx * 2) + 1;
+    int right    = (idx * 2) + 2;
+
+    if(left < n && arr[left] < arr[smallest]) 
+        smallest = left;
+
+    if(right < n && arr[right] < arr[smallest])
+        smallest = right;
+
+    if(idx == smallest) return;
+    swap(arr[idx], arr[smallest]);
+    heapify(arr, smallest, n);
+}
+
+void buildHeap(vector<int> &arr) {
+    int n = arr.size();
+    for(int i = (n / 2) - 1; i >= 0; i--) {
+        heapify(arr, i, n);
+    }
+}
+
 int main() {
     vector<int> minHeap;
     insert(minHeap, 10);
@@ -76,6 +99,10 @@ int main() {
     print(arr);
     removeHeap(arr);
     print(arr);
+
+    vector<int> arr2 = {1, 6, 3, 2, 9, 4, 7};
+    buildHeap(arr2);
+    print(arr2);
 
     return 0;
 }
