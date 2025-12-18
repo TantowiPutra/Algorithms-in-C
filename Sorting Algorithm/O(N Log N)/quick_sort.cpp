@@ -23,10 +23,8 @@ void quickSort(vector<int> &v, int left, int right) {
         } 
     }
     
-    printArr(v);
-    
-    if (left < j) quickSort(v, left, j);
-    if (i < right) quickSort(v, i, right);
+    quickSort(v, left, j);
+    quickSort(v, i, right);
 }
 
 int main() {
