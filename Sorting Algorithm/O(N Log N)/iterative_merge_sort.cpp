@@ -29,7 +29,7 @@ void merge(vector<int> &v, int left, int mid, int right) {
 }
 
 int main() {
-    vector<int> v = {8, 3, 7, 4, 9, 2, 6, 5};
+    vector<int> v = {8, 3, 7, 4, 9, 2, 6};
     int n = v.size();
     temp.resize(n);
 
