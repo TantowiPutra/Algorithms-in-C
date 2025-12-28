@@ -61,6 +61,37 @@ public:
         return merge(leftList, rightList);
     }
 
+    ListNode *priorityQueue(vector<ListNode *> lst) {
+        auto cmp = [](ListNode *a, ListNode *b) {
+            return a->val > b->val;
+        };
+
+        priority_queue<
+            ListNode*,
+            vector<ListNode *>,
+            decltype(cmp)
+        > pq(cmp);
+
+        for (ListNode *l : lst) {
+            if(l) pq.push(l);
+        }
+
+        ListNode dummy(0);
+        ListNode *tail = &dummy;
+
+        while(!pq.empty()) {
+            ListNode *root = pq.top(); pq.pop();
+
+            tail->next = root;
+            tail       = tail->next;
+
+            if(root->next)
+                pq.push(root->next);
+        }
+
+        return dummy.next;
+    }
+
     ListNode* sortList(ListNode* head) {
         return divide(head);
     }   
