@@ -35,18 +35,18 @@ void bfs_topological(vector<vector<int>> adj_list) {
 
     for(int i = 0; i < adj_list.size(); i++) {
         for(int adj : adj_list[i]) {
-            indegree[adj]++;
+            indegree[adj]++; // O(V + E)
         }
     }
 
     queue<int> q;
-    for(int i = 0; i < adj_list.size(); i++) {
+    for(int i = 0; i < adj_list.size(); i++) { // O(V)
         if(indegree[i] == 0)
-            q.push(i);
+            q.push(i); 
     }
 
     cout << "Topological Sort (BFS): ";
-    while(!q.empty()) {
+    while(!q.empty()) { // O(V + E)
         int node = q.front(); q.pop();
         cout << node << " ";
 
