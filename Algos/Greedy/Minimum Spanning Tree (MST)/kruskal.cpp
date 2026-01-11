@@ -101,6 +101,7 @@ int main() {
         {5, 6, 25},
         {5, 7, 24}
     };
+    
     int n = 7;
     kruskalSort(adj_list, n);
     kruskalHeap(adj_list, n);
