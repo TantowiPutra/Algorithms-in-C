@@ -49,6 +49,36 @@ int solve(vector<vector<int>> adj_mat, int n) {
     return minCost;
 }
 
+int solvePq(vector<vector<int>> adj_mat, int n) {
+    int minCost = 0;
+    vector<bool> visited(n + 1, false);
+    vector<int>  minEdge(n + 1, INT_MAX);
+
+    priority_queue<
+        pair<int, int>,
+        vector<pair<int, int>>,
+        greater<pair<int, int>>
+    > pq;
+
+    pq.push({ 0, 1 });
+    while(!pq.empty()) {
+        pair<int, int> top = pq.top(); pq.pop();
+        if(visited[top.second]) continue;
+
+        minCost += top.first;
+        visited[top.second] = true;
+
+        for(int v = 1; v <= n; v++) {
+            if(!visited[v] && adj_mat[top.second][v] != INT_MAX && minEdge[v] > adj_mat[top.second][v]) {
+                pq.push({adj_mat[top.second][v], v});
+                minEdge[v] = adj_mat[top.second][v];
+            }
+        }
+    }
+
+    return minCost;
+}
+
 int main() {
     vector<vector<int>> adj_mat = {
         {},
@@ -61,6 +91,7 @@ int main() {
         {INT_MAX,INT_MAX, 14, INT_MAX, 18, 24, INT_MAX, INT_MAX}
     };
     int n = 7;
+    cout << "Minimum Cost Spanning Tree: " << solve(adj_mat, n) << endl;
     cout << "Minimum Cost Spanning Tree: " << solve(adj_mat, n) << endl;
 
     return 0;
