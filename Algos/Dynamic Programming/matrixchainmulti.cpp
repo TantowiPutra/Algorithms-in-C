@@ -70,7 +70,7 @@ int findMinCostIterative(vector<int> &d) {
 }
 
 int main() {
-    vector<int> d = {3, 2, 4, 2, 5};
+    vector<int> d = {3, 2, 4, 2, 5, 7};
     int n = d.size();
 
     vector<vector<int>> dp(n, vector<int>(n, -1)); // N ^ 2 State
