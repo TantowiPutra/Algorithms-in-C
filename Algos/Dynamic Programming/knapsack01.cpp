@@ -65,6 +65,14 @@ int tabulation(vector<pair<int, int>> &v, int maxWeight) {
         }
     }
 
+    for(int i = 1; i < m; i++) {
+        for(int j = 1; j <= maxWeight; j++) {
+            cout << dp[i][j] << " ";
+        }
+
+        cout << endl;
+    }
+
     return dp[m - 1][n - 1];
 }
 
